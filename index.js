@@ -1,27 +1,29 @@
+const express = require("express");
+const { consultarCep, rastrearEncomendas } = require("correios-brasil");
+
 require("dotenv").config();
 
-const axios = require("axios");
-const https = require("https");
+const app = express();
+const port = process.env.API_PORT;
 
-const username = process.env.USER_CORREIOS;
-const password = process.env.PASS_CORREIOS;
+//GET consulta cep
+app.get("/consulta/cep/:cep", function (req, res, next) {
+  let cepRecebido = req.params.cep;
 
-const options = {
-  method: "post",
-  url: "https://api.correios.com.br/auth/token",
-  auth: {
-    username,
-    password,
-  },
-  httpsAgent: new https.Agent({
-    rejectUnauthorized: false,
-  }),
-};
-
-axios(options)
-  .then((response) => {
-    console.log(response.data);
-  })
-  .catch((error) => {
-    console.error(error);
+  consultarCep(cepRecebido).then((response) => {
+    res.send(response);
   });
+});
+
+//GET rastrear encomenda
+app.get("/consulta/rastrear/:codigo", function (req, res, next) {
+  let codEncomenda = [req.params.codigo];
+
+  rastrearEncomendas(codEncomenda).then((response) => {
+    res.send(response);
+  });
+});
+
+app.listen(port, () => {
+  console.log(`Aplicação rodando na porta ${port}`);
+});
