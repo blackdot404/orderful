@@ -1,26 +1,31 @@
 {
-  "name": "onde_ta",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "nodemon index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/blackdot404/onde_ta.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/blackdot404/onde_ta/issues"
-  },
-  "homepage": "https://github.com/blackdot404/onde_ta#readme",
-  "dependencies": {
-    "correios-brasil": "^3.0.4",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "nodemon": "^2.0.20"
-  }
+    "name": "orderful",
+    "version": "1.0.0",
+    "description": "",
+    "main": "src/server.js",
+    "scripts": {
+        "start": "nodemon src/server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/blackdot404/orderful.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/blackdot404/orderful/issues"
+    },
+    "homepage": "https://github.com/blackdot404/orderful#readme",
+    "dependencies": {
+        "correios-brasil": "^3.0.4",
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2"
+    },
+    "devDependencies": {
+        "eslint": "^8.35.0",
+        "eslint-config-prettier": "^8.6.0",
+        "nodemon": "^2.0.20",
+        "prettier": "^2.8.4"
+    }
 }
