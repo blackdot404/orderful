@@ -1,13 +1,26 @@
-const mysql = require('mysql2/promise');
+const { model, Schema } = require('mongoose');
 
-require('dotenv').config();
+const userSchema = new Schema(
+    {
+        id: Schema.Types.ObjectId,
+        name: {
+            type: String,
+            required: true,
+        },
+        email: {
+            type: String,
+            required: true,
+        },
+        pwd: {
+            type: String,
+            required: true,
+        },
+        createdAt: {
+            type: Date,
+            default: Date.now(),
+        },
+    },
+    { timestamps: true }
+);
 
-const pool = mysql.createPool({
-    host: process.env.HOST_DB,
-    user: process.env.USER_DB,
-    password: process.env.PASS_DB,
-    database: process.env.SCHEMA_DB,
-    waitForConnections: true,
-});
-
-module.exports = pool;
+module.exports = model('User', userSchema);
