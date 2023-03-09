@@ -5,14 +5,14 @@ const consultar = (req, res) => {
     let cepRecebido = req.params.cep;
 
     if (!cepRecebido) {
-        return res.status(400).send({
+        return res.status(400).json({
             statusCode: 400,
             message: 'CEP não informado',
         });
     }
 
     consultarCep(cepRecebido).then((response) => {
-        res.status(200).send(response);
+        res.status(200).json(response);
     });
 };
 

@@ -11,7 +11,7 @@ const login = async (req, res) => {
         const { email, pwd } = req.body;
 
         if (!email || !pwd) {
-            return res.status(400).send({
+            return res.status(400).json({
                 statusCode: 400,
                 message: 'Please provide email and password',
             });
@@ -20,7 +20,7 @@ const login = async (req, res) => {
         const user = await userSchema.findOne({ email });
 
         if (!user) {
-            return res.status(401).send({
+            return res.status(401).json({
                 statusCode: 401,
                 message: 'User not found!',
                 data: { email },
@@ -30,7 +30,7 @@ const login = async (req, res) => {
         const isMatch = await bcrypt.compare(pwd, user.pwd);
 
         if (!isMatch) {
-            return res.status(401).send({
+            return res.status(401).json({
                 statusCode: 401,
                 message: 'Invalid password!',
             });
@@ -38,14 +38,14 @@ const login = async (req, res) => {
 
         const token = jwt.sign({ id: user._id }, SECRET);
 
-        res.status(200).send({
+        res.status(200).json({
             statusCode: 200,
             message: 'Login successful',
             data: token,
         });
     } catch (error) {
         console.error(error);
-        res.status(500).send({
+        res.status(500).json({
             statusCode: 500,
             message: error.message,
         });
@@ -57,7 +57,7 @@ const verifyToken = (req, res, next) => {
     const token = tokenHeader && tokenHeader.split(' ')[1];
 
     if (!token) {
-        return res.status(401).send({
+        return res.status(401).json({
             statuscode: 401,
             message: 'Token not provided!',
         });
@@ -65,10 +65,10 @@ const verifyToken = (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, SECRET);
-        res.set('x-custom-id', decoded.id);
+        res.set('userId', decoded.id);
         next();
     } catch (error) {
-        res.status(401).send({
+        res.status(401).json({
             statuscode: 401,
             message: 'Invalid token!',
         });
