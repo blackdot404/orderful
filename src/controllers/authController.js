@@ -52,4 +52,30 @@ const login = async (req, res) => {
     }
 };
 
-module.exports = login;
+const verifyToken = (req, res, next) => {
+    const tokenHeader = req.headers['authorization'];
+    const token = tokenHeader && tokenHeader.split(' ')[1];
+
+    if (!token) {
+        return res.status(401).send({
+            statuscode: 401,
+            message: 'Token not provided!',
+        });
+    }
+
+    try {
+        const decoded = jwt.verify(token, SECRET);
+        res.set('x-custom-id', decoded.id);
+        next();
+    } catch (error) {
+        res.status(401).send({
+            statuscode: 401,
+            message: 'Invalid token!',
+        });
+    }
+};
+
+module.exports = {
+    login,
+    verifyToken,
+};
