@@ -18,9 +18,12 @@
     },
     "homepage": "https://github.com/blackdot404/orderful#readme",
     "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "body-parser": "^1.20.2",
         "correios-brasil": "^3.0.4",
         "dotenv": "^16.0.3",
         "express": "^4.18.2",
+        "jsonwebtoken": "^9.0.0",
         "mongoose": "^7.0.1"
     },
     "devDependencies": {
