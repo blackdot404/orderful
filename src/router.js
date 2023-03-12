@@ -1,18 +1,17 @@
 const express = require('express');
-const rastrearController = require('./controllers/rastrearController');
-const cepController = require('./controllers/cepController');
+const consultaController = require('./controllers/consultaController');
 const newUserController = require('./controllers/newUserController');
 const authController = require('./controllers/authController');
 
 const router = express.Router();
 
 //Get routes
-router.get('/rastrear/:codigo', rastrearController.rastrear);
-router.get('/consultarcep/:cep', cepController.consultar);
+router.get('/rastrear', consultaController.rastrear);
+router.get('/cep', consultaController.cep);
 
 //Post routes
 router.post('/signup', newUserController.signup);
 router.post('/login', authController.login);
-router.post('/auth', authController.verifyToken, cepController.consultar);
+router.post('/auth', authController.verifyToken, consultaController.cep);
 
 module.exports = router;
